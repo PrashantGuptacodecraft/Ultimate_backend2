@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title }) %>
+</head>
+<body>
+  <main>
+    <h1>Available Homes</h1>
+    <% if (homes.length === 0) { %>
+      <p>No homes have been registered yet.</p>
+    <% } else { %>
+      <ul>
+        <% homes.forEach(home => { %>
+          <li>
+            <h2><%= home.houseName %></h2>
+            <p>Location: <%= home.location %></p>
+            <p>Price: $<%= home.price %></p>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+    <a href="/host/add-home">Add Home</a>
+  </main>
+</body>
+</html>

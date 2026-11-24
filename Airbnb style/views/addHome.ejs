@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head', { title }) %>
+</head>
+<body>
+  <main>
+    <h1>Add a Home</h1>
+    <% if (error) { %>
+      <p role="alert"><%= error %></p>
+    <% } %>
+    <form action="/host/add-home" method="POST">
+      <label for="homeName">Home Name</label>
+      <input id="homeName" type="text" name="homeName" required>
+
+      <label for="homeLocation">Location</label>
+      <input id="homeLocation" type="text" name="homeLocation" required>
+
+      <label for="homePrice">Price per night</label>
+      <input id="homePrice" type="number" name="homePrice" min="0.01" step="0.01" required>
+
+      <button type="submit">Add Home</button>
+    </form>
+    <a href="/">Back to Home</a>
+  </main>
+</body>
+</html>

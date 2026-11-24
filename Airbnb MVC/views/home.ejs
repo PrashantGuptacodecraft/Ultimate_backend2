@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= pageTitle %> | Dirbnb</title>
+  <link rel="stylesheet" href="/home.css">
+</head>
+<body>
+  <header><a href="/" class="brand">Dirbnb</a><nav><a href="/">Explore</a><a href="/host/add-home">List your home</a></nav></header>
+  <main>
+    <h1>Find your next stay</h1>
+    <% if (added) { %><p class="notice" role="status">Your home has been listed.</p><% } %>
+    <% if (registerHomes.length === 0) { %>
+      <section class="empty"><h2>No stays listed yet</h2><p>Be the first to share a place with travelers.</p><a class="button" href="/host/add-home">List your home</a></section>
+    <% } else { %>
+      <section class="cards" aria-label="Available homes">
+        <% registerHomes.forEach(home => { %>
+          <article class="card">
+            <% if (home.photoURL) { %><img src="<%= home.photoURL %>" alt="<%= home.houseName %>" loading="lazy"><% } else { %><div class="photo-placeholder" aria-hidden="true">⌂</div><% } %>
+            <div class="card-body"><h2><%= home.houseName %></h2><p><%= home.location %></p><p class="price">$<%= home.price.toFixed(2) %> <span>per night</span></p><% if (home.rating !== null) { %><p class="rating">★ <%= home.rating.toFixed(1) %> / 5</p><% } %></div>
+          </article>
+        <% }); %>
+      </section>
+    <% } %>
+  </main>
+</body>
+</html>
