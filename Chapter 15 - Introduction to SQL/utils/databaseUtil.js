@@ -1,15 +1,34 @@
-const mongo =require('mongodb');
-const MongoClient = mongo.MongoClient;
-const MONGO_URL = 'mongodb+srv://w47223812_db_user:GLDbEla2eVqO5QxQ@cluster0.9b7ukuc.mongodb.net/';
+const path = require("path");
+const dotenv = require("dotenv");
 
-const mongoConnect = (callback)=>{
+dotenv.config({ path: path.join(__dirname, "..", "..", ".env"), override: false });
+dotenv.config({ path: path.join(__dirname, "..", ".env"), override: false });
 
-MongoClient.connect(MONGO_URL).then((client) => {
-    console.log('Connected to MongoDB');
-    return client;
+const { MongoClient } = require("mongodb");
 
-}).catch((err)=>{
-    console.error('Error connecting to MongoDB:', err);
-})
-}
-module.exports = mongoConnect;
+const MONGO_URL = process.env.MONGO_URL;
+let _db;
+const mongoConnect = (callback) => {
+  if (!MONGO_URL) {
+    throw new Error("MONGO_URL is missing. Add it to the .env file.");
+  }
+
+  MongoClient.connect(MONGO_URL, { serverSelectionTimeoutMS: 10000 })
+    .then((client) => {
+      callback();
+      _db=client.db('airbnb');
+    })
+    .catch((err) => {
+      console.error("Error connecting to MongoDB:", err);
+      process.exitCode = 1;
+    });
+};
+const getDb = () => {
+  if (!_db) {
+    throw new Error("Database not initialized. Call mongoConnect first.");
+  }
+    return _db;
+};
+
+module.mongoConnect= mongoConnect;
+module.getDb=getDb;

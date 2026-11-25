@@ -42,7 +42,11 @@ exports.getHostHomes = (req, res, next) => {
 exports.postAddHome = (req, res, next) => {
   const { houseName, price, location, rating, photoUrl, description } = req.body;
   const home = new Home(houseName, price, location, rating, photoUrl, description);
-  home.save();
+  home.save().then(() => {
+    res.redirect("/host/host-home-list");
+  }).catch(error => {
+    console.log('Error while saving home: ', error);
+  });
 
   res.redirect("/host/host-home-list");
 };
