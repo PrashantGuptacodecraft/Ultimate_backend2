@@ -15,8 +15,8 @@ const mongoConnect = (callback) => {
 
   MongoClient.connect(MONGO_URL, { serverSelectionTimeoutMS: 10000 })
     .then((client) => {
+      _db = client.db('airbnb');
       callback();
-      _db=client.db('airbnb');
     })
     .catch((err) => {
       console.error("Error connecting to MongoDB:", err);
@@ -30,5 +30,5 @@ const getDb = () => {
     return _db;
 };
 
-module.mongoConnect= mongoConnect;
-module.getDb=getDb;
+module.exports = mongoConnect;
+module.exports.getDb = getDb;

@@ -2,9 +2,28 @@
   </head>
   <body>
     <%- include('../partials/nav') %>
-    <main class="container mx-auto mt-20 text-center">
-      <h2 class="text-6xl font-bold text-red-500 mb-4">My Bookings</h2>
-      <p class="text-2xl text-gray-700 mb-8">Bookings will appear here</p>
+    <main class="container mx-auto bg-white shadow-lg rounded-lg p-8 mt-10 max-w-6xl">
+      <h2 class="text-3xl font-bold text-red-500 text-center mb-6">My Bookings</h2>
+      <% if (bookings.length === 0) { %>
+        <p class="text-2xl text-gray-700 text-center mb-8">You have no bookings yet.</p>
+      <% } else { %>
+        <div class="flex flex-wrap justify-center gap-6">
+          <% bookings.forEach(booking => { %>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden w-full max-w-sm">
+              <% if (booking.home) { %>
+                <img src="<%= booking.home.photoUrl %>" alt="<%= booking.home.houseName %>" class="w-full h-48 object-cover">
+                <div class="p-4">
+                  <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= booking.home.houseName %></h3>
+                  <p class="text-gray-600 mb-2"><%= booking.home.location %></p>
+                  <p class="text-lg font-bold text-red-500">Rs<%= booking.home.price %> / night</p>
+                </div>
+              <% } else { %>
+                <p class="p-4 text-gray-700">This home is no longer available.</p>
+              <% } %>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
     </main>
   </body>
 </html>

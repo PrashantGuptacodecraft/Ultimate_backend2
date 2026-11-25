@@ -22,7 +22,10 @@
                   <span class="text-gray-700"><%= home.rating %></span>
                 </div>
               </div>
-              <button class="bg-green-300 p-2">Book</button>
+              <form action="/bookings" method="POST">
+                <input type="hidden" name="homeId" value="<%= home._id %>">
+                <button type="submit" class="bg-green-300 p-2">Book</button>
+              </form>
             </div>
           </div>
         <% }) %>
