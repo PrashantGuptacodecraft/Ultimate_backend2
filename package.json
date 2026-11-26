@@ -1,0 +1,8 @@
+{
+  "name": "ultimate-backend",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix \"Chapter 16 - Introduction to Mongos\" start",
+    "tailwind": "npm --prefix \"Chapter 16 - Introduction to Mongos\" run tailwind"
+  }
+}
